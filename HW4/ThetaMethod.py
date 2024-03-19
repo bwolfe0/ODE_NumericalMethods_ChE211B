@@ -36,6 +36,9 @@ def newton_method(y,f,theta,h,t,t_previous,dfdy,i,tol=1e-6):
 
     #Until convergence condition is met, iterate over newton method
     while np.linalg.norm(current_iter - next_iter, ord=2) > tol:
+        # print(f"t: {t}")
+        # print(f"ci: {current_iter}")
+        # print(f"ni: {next_iter})")
         current_iter = next_iter.copy()
 
         jac = get_jac(len(y[:,0]), dfdy, theta, current_iter, h, t)
@@ -61,5 +64,4 @@ def get_jac(size, dfdy, theta, current_iter, h,t):
     for i, dfdy_row in enumerate(dfdy):
         for j, df in enumerate(dfdy_row):
             jac[i,j] -= (1-theta) * h * df(current_iter[0],current_iter[1],t)
-
     return jac
